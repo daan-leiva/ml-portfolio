@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# OS-specific
+.DS_Store
+
+# VS Code settings (optional)
+.vscode/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# Flask cache
+instance/
+*.db
+*.sqlite3
