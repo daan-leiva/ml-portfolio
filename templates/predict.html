@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Predict - Iris Classifier{% endblock %}
+
+{% block content %}
+<h2>Try the Iris Classifier</h2>
+<form method="POST">
+    <label>Sepal Length: <input type="text" name="feature1" required></label><br>
+    <label>Sepal Width: <input type="text" name="feature2" required></label><br>
+    <label>Petal Length: <input type="text" name="feature3" required></label><br>
+    <label>Petal Width: <input type="text" name="feature4" required></label><br>
+    <button type="submit">Predict</button>
+</form>
+
+{% if prediction %}
+    <h3>Prediction: {{ prediction }}</h3>
+    <p>Input features: {{ features }}</p>
+{% endif %}
+{% endblock %}
