@@ -44,6 +44,7 @@ def predict():
                 float(request.form['feature3']),
                 float(request.form['feature4'])
             ]
+            print('something', flush=True)
             logging.info(f"Received features: {features}")
         except ValueError:
             logging.warning("Invalid input submitted")
