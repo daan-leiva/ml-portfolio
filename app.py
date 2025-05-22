@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, jsonify
 import os
 import boto3
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -41,25 +44,23 @@ def predict():
                 float(request.form['feature3']),
                 float(request.form['feature4'])
             ]
-            print("Sending to SageMaker:", features)
+            logging.info(f"Received features: {features}")
         except ValueError:
+            logging.warning("Invalid input submitted")
             return 'Invalid input. Please enter valid numebers.'
     
         # send to SageMaker
         runtime = boto3.client('sagemaker-runtime')
-        print('SageMaker runtime client created')
         payload = json.dumps({'data': [features]})
-        print('Payload:', payload)
+        logging.info("Sending payload to SageMaker")
         response = runtime.invoke_endpoint(
             EndpointName=ENDPOINT_NAME,
             ContentType='application/json',
             Body=payload
         )
-        print('Response:', response)
         result = json.loads(response['Body'].read().decode())
-        print('Result:', result)
         prediction = result['predictions'][0]
-        print('Prediction:', prediction)
+        logging.info(f"Prediction result: {prediction}")
 
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')
