@@ -3,6 +3,17 @@
 {% block title %}Home - ML Portfolio{% endblock %}
 
 {% block content %}
-<h1>Welcome to My Machine Learning Portfolio</h1>
-<p>Explore my work in machine learning, AI, and data science.</p>
+<section class="wrapper style1 fullscreen fade-up">
+  <div class="inner">
+    <h1>Welcome to My Machine Learning Portfolio</h1>
+    <p class="major">
+      I'm Daan Leiva — an AI engineer passionate about machine learning, data science, and real-world applications.
+      This site showcases my models, research, and projects across different domains.
+    </p>
+    <ul class="actions">
+      <li><a href="{{ url_for('projects') }}" class="button scrolly">View Projects</a></li>
+      <li><a href="{{ url_for('resume') }}" class="button">View Resume</a></li>
+    </ul>
+  </div>
+</section>
 {% endblock %}

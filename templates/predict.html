@@ -3,47 +3,64 @@
 {% block title %}Predict - Iris Classifier{% endblock %}
 
 {% block content %}
-<h2>Try the Iris Classifier</h2>
-<div class="project-summary" style="padding: 1em; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; margin-bottom: 2em;">
-  <h2>ML Cloud Model Deployment</h2>
-  <p>This project demonstrates a complete machine learning deployment pipeline using AWS SageMaker and Flask.</p>
-  <ul>
-    <li>Trains a Random Forest Classifier on the Iris dataset</li>
-    <li>Packages and uploads the model to AWS S3</li>
-    <li>Deploys the model to SageMaker as a persistent endpoint</li>
-    <li>Integrates a Flask web form to send input and receive predictions</li>
-    <li>Provides a test interface through the /projects/predict route</li>
-  </ul>
-  <p><em>Example:</em> Input sepal and petal measurements, and the model returns the predicted Iris species.</p>
-</div>
-<form method="POST">
-    <label>
-        Sepal Length:
-        <input type="text" name="feature1" required>
-        <small>(Range: 4.3 – 7.9 cm)</small>
-    </label><br>
-    <label>
-        Sepal Width:
-        <input type="text" name="feature2" required>
-        <small>(Range: 2.0 – 4.4 cm)</small>
-    </label><br>
-    <label>
-        Petal Length:
-        <input type="text" name="feature3" required>
-        <small>(Range: 1.0 – 6.9 cm)</small>
-    </label><br>
-    <label>
-        Petal Width:
-        <input type="text" name="feature4" required>
-        <small>(Range: 0.1 – 2.5 cm)</small>
-    </label><br>
+<section class="wrapper style2">
+  <div class="inner">
 
-    <button type="submit">Predict</button>
-</form>
+    <header class="major">
+      <h1>Iris Classifier</h1>
+      <p>Predict the species of an Iris flower based on its measurements using a SageMaker-hosted ML model.</p>
+    </header>
 
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>ML Cloud Model Deployment</h2>
+      <p>This project demonstrates a complete machine learning deployment pipeline using AWS SageMaker and Flask.</p>
+      <ul>
+        <li>Trains a Random Forest Classifier on the Iris dataset</li>
+        <li>Packages and uploads the model to AWS S3</li>
+        <li>Deploys the model to SageMaker as a persistent endpoint</li>
+        <li>Integrates a Flask web form to send input and receive predictions</li>
+        <li>Provides a test interface through this page</li>
+      </ul>
+      <p><em>Example:</em> Input sepal and petal measurements, and the model returns the predicted Iris species.</p>
+    </div>
 
-{% if prediction %}
-    <h3>Prediction: {{ prediction }}</h3>
-    <p>Input features: {{ features }}</p>
-{% endif %}
+    <form method="POST">
+      <div class="fields">
+        <div class="field half">
+          <label for="feature1">Sepal Length (cm)</label>
+          <input type="text" name="feature1" id="feature1" required>
+          <small>(Range: 4.3 – 7.9)</small>
+        </div>
+        <div class="field half">
+          <label for="feature2">Sepal Width (cm)</label>
+          <input type="text" name="feature2" id="feature2" required>
+          <small>(Range: 2.0 – 4.4)</small>
+        </div>
+        <div class="field half">
+          <label for="feature3">Petal Length (cm)</label>
+          <input type="text" name="feature3" id="feature3" required>
+          <small>(Range: 1.0 – 6.9)</small>
+        </div>
+        <div class="field half">
+          <label for="feature4">Petal Width (cm)</label>
+          <input type="text" name="feature4" id="feature4" required>
+          <small>(Range: 0.1 – 2.5)</small>
+        </div>
+      </div>
+
+      <ul class="actions">
+        <li><input type="submit" value="Predict" class="primary" /></li>
+      </ul>
+    </form>
+
+    {% if prediction %}
+    <section class="box" style="margin-top: 2rem;">
+      <h3>Prediction Result</h3>
+      <p><strong>Predicted Class:</strong> {{ prediction }}</p>
+      <p><strong>Input Features:</strong> {{ features }}</p>
+    </section>
+    {% endif %}
+
+  </div>
+</section>
 {% endblock %}

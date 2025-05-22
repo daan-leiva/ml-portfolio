@@ -3,94 +3,93 @@
 {% block title %}Resume - Daan I Leiva{% endblock %}
 
 {% block content %}
-<div class="resume-container">
-  <!-- Left Column -->
-  <div class="resume-left">
-    <section>
-      <h2>Contact</h2>
-      <p><strong>Phone:</strong> <a href="tel:+12134081597">213-408-1597</a></p>
-      <p><strong>Email:</strong> <a href="mailto:daan.leiva@gmail.com">daan.leiva@gmail.com</a></p>
-      <p><strong>Location:</strong> Vaan Nuys, CA 91607</p>
-      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/daan-leiva" target="_blank">linkedin.com/in/daan-leiva</a></p>
-    </section>
+<section class="wrapper style2">
+  <div class="inner">
 
-    <section>
-      <h2>Education</h2>
-      <p><strong>UCLA</strong> (2018)<br>MSc in Computer Science<br><em>Emphasis in AI, ML, Bioinformatics</em></p>
-      <p><strong>CSU Long Beach</strong> (2016)<br>BSc in Physics & Computer Science<br>Minor in Applied Mathematics</p>
-    </section>
-
-    <section>
-      <h2>Expertise</h2>
-      <ul>
-        <li>Python, C++, Kotlin, Java, VB.NET, JavaScript, C#, T-SQL</li>
-        <li>TensorFlow, PyTorch, Pandas, NumPy</li>
-        <li>Google Cloud, Docker, Kubernetes</li>
-        <li>OpenCV</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Languages</h2>
-      <ul>
-        <li>English</li>
-        <li>Spanish (Fluent)</li>
-        <li>Portuguese (Conversational)</li>
-      </ul>
-    </section>
-  </div>
-
-  <!-- Right Column -->
-  <div class="resume-right">
-    <h1>Daan I Leiva</h1>
-    <h2>Software Engineer / ML Engineer</h2>
-    <p>
-        <a href="{{ url_for('static', filename='daanleiva_resume.pdf') }}" class="download-btn" target="_blank" download>
+    <header class="major">
+      <h1>Daan I Leiva</h1>
+      <h2>Software Engineer / ML Engineer</h2>
+      <p>
+        <a href="{{ url_for('static', filename='daanleiva_resume.pdf') }}" class="button primary" target="_blank" download>
           📄 Download PDF Resume
         </a>
-    </p>
-    <p>9+ years of experience in software engineering and full stack development including managing other developers, communicating with customers, and releasing multiple in-house software tools critical to manufacturing operations.</p>
+      </p>
+      <p>
+        9+ years of experience in software engineering and full stack development including managing other developers,
+        communicating with customers, and releasing multiple in-house software tools critical to manufacturing operations.
+      </p>
+    </header>
 
-    <section>
-      <h2>Experience</h2>
-      <p><strong>Absolute Technologies</strong>, Anaheim, CA<br><em>Software Engineer</em> (Jun 2014–Present)</p>
-      <ul>
-        <li>Lead software development pipeline and manage dev team</li>
-        <li>Develop scheduling and projection tools for manufacturing</li>
-        <li>Automated error analysis tools for internal database</li>
-        <li>Tech stack: TSQL, Python, Qt</li>
-      </ul>
+    <div class="split">
+      <!-- Left Column -->
+      <section>
+        <h3>Contact</h3>
+        <p><strong>Phone:</strong> <a href="tel:+12134081597">213-408-1597</a></p>
+        <p><strong>Email:</strong> <a href="mailto:daan.leiva@gmail.com">daan.leiva@gmail.com</a></p>
+        <p><strong>Location:</strong> Van Nuys, CA 91607</p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/daan-leiva" target="_blank">linkedin.com/in/daan-leiva</a></p>
 
-      <p><strong>Long Beach Water Department</strong>, Long Beach, CA<br><em>ML/Software Engineer</em> (Oct 2015–2016)</p>
-      <ul>
-        <li>Built CNN in C++ (FANN) to detect pipeline structural damage from robot camera footage</li>
-        <li>Used OpenCV for preprocessing and built a labeled dataset</li>
-        <li>Aimed to reduce pipeline inspection time from 10 years to ~1</li>
-      </ul>
+        <h3>Education</h3>
+        <p><strong>UCLA</strong> (2018)<br>MSc in Computer Science<br><em>Emphasis in AI, ML, Bioinformatics</em></p>
+        <p><strong>CSU Long Beach</strong> (2016)<br>BSc in Physics & Computer Science<br>Minor in Applied Mathematics</p>
 
-      <p><strong>Nano Optics Research Lab, CSULB</strong><br><em>Research Assistant</em> (Winter 2011–Spring 2014)</p>
-      <ul>
-        <li>Conducted near-field optical experiments with nano-antennas</li>
-        <li>Published in PCCP: “Near-field spatial mapping of strongly interacting multiple plasmonic infrared antennas”</li>
-      </ul>
-    </section>
+        <h3>Expertise</h3>
+        <ul>
+          <li>Python, C++, Kotlin, Java, VB.NET, JavaScript, C#, T-SQL</li>
+          <li>TensorFlow, PyTorch, Pandas, NumPy</li>
+          <li>Google Cloud, Docker, Kubernetes</li>
+          <li>OpenCV</li>
+        </ul>
 
-    <section>
-      <h2>Certifications</h2>
-      <ul>
-        <li>Machine Learning Engineering for Production (MLOps) – Aug 2023</li>
-        <li>TensorFlow: Advanced Techniques – Aug 2020</li>
-        <li>TensorFlow 2: Deep Learning – Jun 2023</li>
-        <li>First Principles of Computer Vision – Apr 2023</li>
-        <li>Machine Learning Specialization – Mar 2023</li>
-        <li>DeepLearning.AI TensorFlow Developer – Feb 2023</li>
-        <li>Deep Learning Specialization – Nov 2020</li>
-      </ul>
-    </section>
+        <h3>Languages</h3>
+        <ul>
+          <li>English</li>
+          <li>Spanish (Fluent)</li>
+          <li>Portuguese (Conversational)</li>
+        </ul>
+      </section>
+
+      <!-- Right Column -->
+      <section>
+        <h3>Experience</h3>
+        <p><strong>Absolute Technologies</strong>, Anaheim, CA<br><em>Software Engineer</em> (Jun 2014–Present)</p>
+        <ul>
+          <li>Lead software development pipeline and manage dev team</li>
+          <li>Develop scheduling and projection tools for manufacturing</li>
+          <li>Automated error analysis tools for internal database</li>
+          <li>Tech stack: TSQL, Python, Qt</li>
+        </ul>
+
+        <p><strong>Long Beach Water Department</strong>, Long Beach, CA<br><em>ML/Software Engineer</em> (Oct 2015–2016)</p>
+        <ul>
+          <li>Built CNN in C++ (FANN) to detect pipeline structural damage from robot camera footage</li>
+          <li>Used OpenCV for preprocessing and built a labeled dataset</li>
+          <li>Aimed to reduce pipeline inspection time from 10 years to ~1</li>
+        </ul>
+
+        <p><strong>Nano Optics Research Lab, CSULB</strong><br><em>Research Assistant</em> (Winter 2011–Spring 2014)</p>
+        <ul>
+          <li>Conducted near-field optical experiments with nano-antennas</li>
+          <li>Published in PCCP: “Near-field spatial mapping of strongly interacting multiple plasmonic infrared antennas”</li>
+        </ul>
+
+        <h3>Certifications</h3>
+        <ul>
+          <li>Machine Learning Engineering for Production (MLOps) – Aug 2023</li>
+          <li>TensorFlow: Advanced Techniques – Aug 2020</li>
+          <li>TensorFlow 2: Deep Learning – Jun 2023</li>
+          <li>First Principles of Computer Vision – Apr 2023</li>
+          <li>Machine Learning Specialization – Mar 2023</li>
+          <li>DeepLearning.AI TensorFlow Developer – Feb 2023</li>
+          <li>Deep Learning Specialization – Nov 2020</li>
+        </ul>
+      </section>
+    </div>
+
+    <hr style="margin-top: 3rem;">
+
+    <h2 style="text-align:center;">Visual Resume</h2>
+    <img src="{{ url_for('static', filename='daanleiva_resume.png') }}" alt="Resume" style="width: 100%; border-radius: 6px; margin-top: 1rem;">
   </div>
-</div>
-
-<h2>Daan Leiva's Resume</h2>
-<img src="{{ url_for('static', filename='daanleiva_resume.png') }}" alt="Resume" style="width: 100%; border-radius: 6px;">
-
+</section>
 {% endblock %}

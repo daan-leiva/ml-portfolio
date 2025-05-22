@@ -3,6 +3,53 @@
 {% block title %}Contact - ML Portfolio{% endblock %}
 
 {% block content %}
-<h1>My Contact Information</h1>
-<p>This is a description paragraph</p>
+<section class="wrapper style2">
+  <div class="inner">
+    <header class="major">
+      <h1>Contact</h1>
+      <p>If you'd like to reach out, feel free to use the info below or drop me a message.</p>
+    </header>
+
+    <div class="split style1">
+      <section>
+        <ul class="contact">
+          <li>
+            <h3>Email</h3>
+            <a href="mailto:daan@example.com">daan@example.com</a>
+          </li>
+          <li>
+            <h3>GitHub</h3>
+            <a href="https://github.com/daanleiva" target="_blank">github.com/daanleiva</a>
+          </li>
+          <li>
+            <h3>LinkedIn</h3>
+            <a href="https://www.linkedin.com/in/daanleiva" target="_blank">linkedin.com/in/daanleiva</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <form method="post" action="#">
+          <div class="fields">
+            <div class="field half">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" />
+            </div>
+            <div class="field half">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" rows="5"></textarea>
+            </div>
+          </div>
+          <ul class="actions">
+            <li><input type="submit" value="Send Message" class="primary" /></li>
+          </ul>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
 {% endblock %}

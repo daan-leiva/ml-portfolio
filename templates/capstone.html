@@ -3,59 +3,63 @@
 {% block title %}Capstone - ML Portfolio{% endblock %}
 
 {% block content %}
-<h1>Capstone Project</h1>
-<section>
-  <h2>Capstone Project</h2>
-  <h3>Predicting Genotypes from Allele Intensity Data Using a Support Vector Machine</h3>
-  <p><strong>Author:</strong> Daan Leiva</p>
-  <p><strong>Institution:</strong> UCLA</p>
+<section class="wrapper style2">
+  <div class="inner">
+    <header class="major">
+      <h1>Capstone Project</h1>
+      <h2>Predicting Genotypes from Allele Intensity Data Using a Support Vector Machine</h2>
+      <p><strong>Author:</strong> Daan Leiva<br>
+         <strong>Institution:</strong> UCLA</p>
+    </header>
 
-  <h4>Overview</h4>
-  <p>
-    This project explores the use of <strong>Support Vector Machines (SVMs)</strong> to predict genotypes based on allele intensity data collected via <em>OpenArray™ SNP genotyping technology</em>.
-    The goal is to improve the accuracy of genotype predictions—especially in assays with low signal separation—thereby reducing costs and improving confidence in results.
-  </p>
+    <section>
+      <h3>Overview</h3>
+      <p>
+        This project explores the use of <strong>Support Vector Machines (SVMs)</strong> to predict genotypes based on allele intensity data collected via <em>OpenArray™ SNP genotyping technology</em>.
+        The goal is to improve the accuracy of genotype predictions—especially in assays with low signal separation—thereby reducing costs and improving confidence in results.
+      </p>
 
-  <h4>Objectives</h4>
-  <ul>
-    <li>Optimize an SVM model (linear vs. RBF) for genotype prediction.</li>
-    <li>Target challenging assays with low Minimum Cluster Sigma Separation (MCSS).</li>
-    <li>Validate the model’s accuracy using k-fold cross-validation.</li>
-    <li>Test prediction performance on non-majority genotype samples.</li>
-  </ul>
+      <h3>Objectives</h3>
+      <ul>
+        <li>Optimize an SVM model (linear vs. RBF) for genotype prediction.</li>
+        <li>Target challenging assays with low Minimum Cluster Sigma Separation (MCSS).</li>
+        <li>Validate the model’s accuracy using k-fold cross-validation.</li>
+        <li>Test prediction performance on non-majority genotype samples.</li>
+      </ul>
 
-  <h4>Data & Methodology</h4>
-  <ul>
-    <li><strong>Dataset:</strong> 3,506 failed assays with MCSS < 5; 263 were labeled discrepant.</li>
-    <li><strong>Features:</strong> Fluorescence intensities (VIC for allele 1, FAM for allele 2).</li>
-    <li><strong>Labeling:</strong> Genotype ground truth assigned using a 70% majority threshold.</li>
-    <li><strong>Tools:</strong> Python (<code>scikit-learn</code>), R, SQLite.</li>
-    <li><strong>Models Tested:</strong> Linear SVM (fast but less accurate) vs. RBF SVM (more accurate, slower).</li>
-  </ul>
-  <p>
-    After hyperparameter tuning, the best-performing model used an RBF kernel with
-    <strong>C = 0.3</strong> and <strong>γ = 300</strong>.
-  </p>
+      <h3>Data & Methodology</h3>
+      <ul>
+        <li><strong>Dataset:</strong> 3,506 failed assays with MCSS < 5; 263 were labeled discrepant.</li>
+        <li><strong>Features:</strong> Fluorescence intensities (VIC for allele 1, FAM for allele 2).</li>
+        <li><strong>Labeling:</strong> Genotype ground truth assigned using a 70% majority threshold.</li>
+        <li><strong>Tools:</strong> Python (<code>scikit-learn</code>), R, SQLite.</li>
+        <li><strong>Models Tested:</strong> Linear SVM (fast but less accurate) vs. RBF SVM (more accurate, slower).</li>
+      </ul>
+      <p>
+        After hyperparameter tuning, the best-performing model used an RBF kernel with
+        <strong>C = 0.3</strong> and <strong>γ = 300</strong>.
+      </p>
 
-  <h4>Results</h4>
-  <ul>
-    <li><strong>Overall accuracy:</strong> ~74.6%</li>
-    <li><strong>High performance:</strong> Homozygous genotypes (11 and 22)</li>
-    <li><strong>Low performance:</strong> Heterozygous genotypes (12), due to poor separability</li>
-    <li><strong>Cross-validation:</strong> 4-fold CV confirmed generalizability</li>
-    <li><strong>Prediction cohesion:</strong> Strong performance even on non-majority genotype samples</li>
-  </ul>
+      <h3>Results</h3>
+      <ul>
+        <li><strong>Overall accuracy:</strong> ~74.6%</li>
+        <li><strong>High performance:</strong> Homozygous genotypes (11 and 22)</li>
+        <li><strong>Low performance:</strong> Heterozygous genotypes (12), due to poor separability</li>
+        <li><strong>Cross-validation:</strong> 4-fold CV confirmed generalizability</li>
+        <li><strong>Prediction cohesion:</strong> Strong performance even on non-majority genotype samples</li>
+      </ul>
 
-  <h4>Conclusion</h4>
-  <p>
-    The RBF SVM outperformed the linear model in both accuracy and prediction consistency. While homozygous genotype predictions were reliable,
-    predicting heterozygous samples remains a challenge. Future improvements could involve additional feature transformation or deeper models.
-  </p>
+      <h3>Conclusion</h3>
+      <p>
+        The RBF SVM outperformed the linear model in both accuracy and prediction consistency. While homozygous genotype predictions were reliable,
+        predicting heterozygous samples remains a challenge. Future improvements could involve additional feature transformation or deeper models.
+      </p>
 
-  <h4>Acknowledgments</h4>
-  <p>
-    Special thanks to Professor Wei Wang for her mentorship and to Chelsea Ju for her support and collaboration throughout the project.
-  </p>
+      <h3>Acknowledgments</h3>
+      <p>
+        Special thanks to Professor Wei Wang for her mentorship and to Chelsea Ju for her support and collaboration throughout the project.
+      </p>
+    </section>
+  </div>
 </section>
-
 {% endblock %}

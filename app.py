@@ -44,16 +44,13 @@ def predict():
                 float(request.form['feature3']),
                 float(request.form['feature4'])
             ]
-            print('something')
-            logging.info(f"Received features: {features}")
         except ValueError:
-            logging.warning("Invalid input submitted")
+            logging.error("Invalid input submitted")
             return 'Invalid input. Please enter valid numebers.'
     
         # send to SageMaker
         runtime = boto3.client('sagemaker-runtime')
         payload = json.dumps({'data': [features]})
-        logging.info("Sending payload to SageMaker")
         response = runtime.invoke_endpoint(
             EndpointName=ENDPOINT_NAME,
             ContentType='application/json',
@@ -61,7 +58,6 @@ def predict():
         )
         result = json.loads(response['Body'].read().decode())
         prediction = result['predictions'][0]
-        logging.info(f"Prediction result: {prediction}")
 
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')

@@ -3,10 +3,36 @@
 {% block title %}Projects - ML Portfolio{% endblock %}
 
 {% block content %}
-<h1>Projects</h1>
-<p>Here you'll find examples of machine learning models and apps I've built.</p>
+<section class="wrapper style2">
+  <div class="inner">
+    <header class="major">
+      <h1>Projects</h1>
+      <p>Explore machine learning models and cloud-deployed apps I've built.</p>
+    </header>
 
-<ul>
-    <li><a href="/projects/predict">Iris Classifier</a> — Try my deployed RandomForest model on the Iris dataset.</li>
-    <!-- Add more projects here in the future -->
-</ul>{% endblock %}
+    <div class="features">
+      <section>
+        <h3>Iris Classifier</h3>
+        <p>
+          A full-stack ML deployment using AWS SageMaker and Flask. Trains a Random Forest on the Iris dataset, packages the model, deploys it to the cloud,
+          and integrates it into a web form.
+        </p>
+        <ul class="actions">
+          <li><a href="{{ url_for('predict') }}" class="button">Try It</a></li>
+        </ul>
+      </section>
+
+      <!-- Placeholder for future project -->
+      <section>
+        <h3>Coming Soon</h3>
+        <p>
+          More machine learning projects and cloud-based applications will be added here.
+        </p>
+        <ul class="actions">
+          <li><a href="#" class="button disabled">Under Construction</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

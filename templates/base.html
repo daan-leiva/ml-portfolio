@@ -1,22 +1,57 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>{% block title %}ML Portfolio{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}"></noscript>
 </head>
-<body>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/projects">Projects</a> |
-        <a href="/resume">Resume</a> |
-        <a href="/contact">Contact</a> |
-        <a href="/paper">Paper</a> |
-        <a href="/capstone">Capstone</a>
-    </nav>
-    <hr>
+<body class="is-preload">
 
-    {% block content %}
-    <!-- Page-specific content goes here -->
-    {% endblock %}
+<!-- Sidebar with Navigation -->
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('projects') }}">Projects</a></li>
+                <li><a href="{{ url_for('resume') }}">Resume</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('paper') }}">Paper</a></li>
+                <li><a href="{{ url_for('capstone') }}">Capstone</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <section class="wrapper fade-up inner" style="padding-top: 4rem;">
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </section>
+</div>
+
+<!-- Footer -->
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; Daan Leiva. All rights reserved.</li>
+            <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
 </body>
 </html>
