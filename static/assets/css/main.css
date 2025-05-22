@@ -3276,7 +3276,12 @@ input, select, textarea {
 			-webkit-justify-content: center;
 			-ms-justify-content: center;
 			justify-content: center;
-			min-height: 100svh;
+			min-height: 100vh;
+		}
+		@supports (-webkit-touch-callout: none) {
+			.wrapper.fullscreen {
+				min-height: -webkit-fill-available;
+			}
 		}
 
 			body.is-ie .wrapper.fullscreen {
