@@ -4,6 +4,18 @@
 
 {% block content %}
 <h2>Try the Iris Classifier</h2>
+<div class="project-summary" style="padding: 1em; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; margin-bottom: 2em;">
+  <h2>ML Cloud Model Deployment</h2>
+  <p>This project demonstrates a complete machine learning deployment pipeline using AWS SageMaker and Flask.</p>
+  <ul>
+    <li>Trains a Random Forest Classifier on the Iris dataset</li>
+    <li>Packages and uploads the model to AWS S3</li>
+    <li>Deploys the model to SageMaker as a persistent endpoint</li>
+    <li>Integrates a Flask web form to send input and receive predictions</li>
+    <li>Provides a test interface through the /projects/predict route</li>
+  </ul>
+  <p><em>Example:</em> Input sepal and petal measurements, and the model returns the predicted Iris species.</p>
+</div>
 <form method="POST">
     <label>
         Sepal Length:
