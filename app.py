@@ -23,6 +23,14 @@ def resume():
 def contact():
     return render_template('contact.html')
 
+@app.route('/capstone')
+def capstone():
+    return render_template('capstone.html')
+
+@app.route('/paper')
+def paper():
+    return render_template('paper.html')
+
 @app.route('/projects/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
