@@ -3811,7 +3811,7 @@ input, select, textarea {
 				height: 3.5em;
 				left: 0;
 				line-height: 3.5em;
-				overflow: hidden;
+				/*overflow: hidden;*/
 				padding: 0;
 				text-align: center;
 				top: 0;
