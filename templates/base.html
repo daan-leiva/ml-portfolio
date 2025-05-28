@@ -7,49 +7,61 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
     <noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}"></noscript>
 </head>
-<body class="is-preload">
+<body class="homepage is-preload">
 
-<!-- Sidebar with Navigation -->
-<section id="sidebar">
-    <div class="inner">
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('projects') }}">Projects</a></li>
-                <li><a href="{{ url_for('resume') }}">Resume</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                <li><a href="{{ url_for('paper') }}">Paper</a></li>
-                <li><a href="{{ url_for('capstone') }}">Capstone</a></li>
-            </ul>
-        </nav>
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <div id="header-wrapper">
+        <div id="header" class="container">
+
+            <!-- Logo -->
+            <h1 id="logo"><a href="{{ url_for('home') }}">ML Portfolio</a></h1>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('projects') }}">Projects</a></li>
+                    <li><a href="{{ url_for('resume') }}">Resume</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('paper') }}">Paper</a></li>
+                    <li><a href="{{ url_for('capstone') }}">Capstone</a></li>
+                </ul>
+            </nav>
+
+            
+
+        </div>
+        {% block header %}
+
+            {% endblock %}
     </div>
-</section>
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <section class="wrapper fade-up">
-        <div class="inner" style="padding-top: 4rem;">
+    <!-- Main Content -->
+    <div class="wrapper">
+        <div class="container" style="padding-top: 2rem;">
             {% block content %}
             <!-- Page-specific content goes here -->
             {% endblock %}
         </div>
-    </section>
-</div>
-
-<!-- Footer -->
-<footer id="footer" class="wrapper style1-alt">
-    <div class="inner">
-        <ul class="menu">
-            <li>&copy; Daan Leiva. All rights reserved.</li>
-            <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-        </ul>
     </div>
-</footer>
+
+    <!-- Footer -->
+    <div id="footer-wrapper">
+        <div id="footer" class="container">
+            <ul class="menu">
+                <li>&copy; Daan Leiva. All rights reserved.</li>
+                <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
 <!-- Scripts -->
 <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.dropotron.min.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
