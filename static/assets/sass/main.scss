@@ -609,7 +609,7 @@
 		position: relative;
 		background: #fff;
 		overflow-x: hidden;
-		padding: 6em 0 6em 0;
+		padding: 3em 0 6em 0;
 	}
 
 	.image-wrapper {
@@ -638,7 +638,7 @@
 
 	#header-wrapper {
 		position: relative;
-		padding: 3em 0 1em 0;
+		padding: 4em 0 2em 0;
 		background-image: url('images/header.svg');
 		@include vendor('background-image', ('url("images/overlay.png")', 'url("images/header.svg")', 'linear-gradient(75deg, #FF7088 15%, #F2B69D 55%)'));
 		background-color: #f08c89;
@@ -648,7 +648,7 @@
 	}
 
 	.homepage #header-wrapper {
-		padding: 9em 0 5em 0;
+		padding: 6em 0 2em 0;
 		background-size: 128px 128px, 100% 100%, auto;
 	}
 
@@ -975,7 +975,7 @@
 		/* Wrappers */
 
 			.wrapper {
-				padding: 5em 0 5em 0;
+				padding: 2em 0 5em 0;
 			}
 
 			#header-wrapper {
@@ -1022,7 +1022,7 @@
 		/* Wrappers */
 
 			.wrapper {
-				padding: 4em 2em 4em 2em;
+				padding: 2em 2em 4em 2em;
 			}
 
 			#header-wrapper {
@@ -1030,7 +1030,7 @@
 			}
 
 			.homepage #header-wrapper {
-				padding: 5em 0 4em 0;
+				padding: 4.5em 0 2em 0;
 			}
 
 			#promo-wrapper {
@@ -1067,7 +1067,7 @@
 		/* Hero */
 
 			#hero {
-				padding: 3.5em 4em 0 4em;
+				padding: 1.5em 4em 0 4em;
 
 				h2 {
 					font-size: 2.75em;
