@@ -3,10 +3,16 @@ import os
 import boto3
 import json
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
+
+endpoint_cache = {
+    'status': None,
+    'last_checked': 0
+}
 
 ENDPOINT_NAME = 'ml-model-endpoint'
 
@@ -37,6 +43,8 @@ def paper():
 @app.route('/projects/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
+        if not is_model_ready():
+            return render_template('predict.html', error="Model is not ready. Please try again later.")
         try:
             features = [
                 float(request.form['feature1']),
@@ -61,6 +69,15 @@ def predict():
 
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')
+
+def is_model_ready():
+    now = time.time()
+    if now - endpoint_cache['last_checked'] > 60: # once per minute
+        sm_client = boto3.client('sagemaker')
+        status = sm_client.describe_endpoint(ENDPOINT_NAME=ENDPOINT_NAME)['EndpointStatus']
+        endpoint_cache['status'] = status
+        endpoint_cache['last_checked'] = now
+    return endpoint_cache['status'] == 'InService'
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Render will set PORT env var
