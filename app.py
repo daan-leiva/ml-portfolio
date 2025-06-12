@@ -4,6 +4,7 @@ import boto3
 import json
 import logging
 import time
+import requests
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,6 +16,7 @@ endpoint_cache = {
 }
 
 ENDPOINT_NAME = 'ml-model-endpoint'
+VM_API_URL = 'http://35.212.198.98:5000/translate'
 
 @app.route('/')
 def home():
@@ -69,6 +71,43 @@ def predict():
 
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')
+
+# Load model once at startup
+TRANSLATION_MODEL_PATH = "checkpoints/en_fr_run3/en_fr_medium_d256_v8k_20250611_065619/best_model.pt"
+translator = load_checkpoint_and_tokenizer(TRANSLATION_MODEL_PATH)
+
+def call_translation_api(text, decode_type='beam', beam_size=5):
+    payload = {
+        'text': text,
+        'decoder_type': decode_type,
+        'beam_size':beam_size
+    }
+    try:
+        response = requests.post(VM_API_URL, json=payload)
+        response.raise_for_status()
+        return response.json()['translation'][0]
+    
+    except requests.RequestException as e:
+        return f"API error: {e}"
+
+@app.route('/projects/translate', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        text = request.form.get('source_text', '').strip()
+        decode_type = request.form.get('decode_type', 'beam')
+        beam_size = int(request.form.get('beam_size', 5))
+
+        if not text:
+            return render_template('translate.html', error="Please enter a sentence.")
+        
+        try:
+            results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
+            return render_template('translate.html', original=text, translated=results,
+                                   decode_type=decode_type, beam_size=beam_size)
+        except Exception as e:
+            return render_template('translate.html', error=str(e))
+
+    return render_template('translate.html')
 
 def is_model_ready():
     now = time.time()

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Translate - Alpha Transformer{% endblock %}
+
+{% block content %}
+<section class="wrapper style2">
+  <div class="inner">
+
+    <header class="major">
+      <h1>Translate English to French</h1>
+      <p>Use our custom Transformer model trained on WMT16 to translate English sentences into French.</p>
+    </header>
+
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Custom Transformer Inference</h2>
+      <p>This demo uses a PyTorch Transformer trained from scratch with subword tokenization and beam search decoding.</p>
+      <ul>
+        <li>Model: Transformer with beam/greedy decoding</li>
+        <li>Trained on: WMT16 EN→FR</li>
+        <li>Decoding: Configurable between greedy and beam search</li>
+        <li>Deployed on: Local VM via Flask API</li>
+      </ul>
+    </div>
+
+    {% if error %}
+    <div class="box" style="margin-bottom: 2rem; border: 2px solid #f44336; background-color: #ffe6e6;">
+      <h3 style="color: #f44336;">Error</h3>
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="fields">
+        <div class="field">
+          <label for="source_text">Enter English Sentence</label>
+          <textarea name="source_text" id="source_text" rows="3" required>{{ request.form.source_text or '' }}</textarea>
+        </div>
+        <div class="field">
+          <label for="decode_type">Decoding Method</label>
+          <select name="decode_type" id="decode_type">
+            <option value="beam" {% if request.form.decode_type == "beam" %}selected{% endif %}>Beam Search</option>
+            <option value="greedy" {% if request.form.decode_type == "greedy" %}selected{% endif %}>Greedy Decoding</option>
+          </select>
+        </div>
+      </div>
+
+      <ul class="actions">
+        <li><input type="submit" value="Translate" class="primary" /></li>
+      </ul>
+    </form>
+
+    {% if translation %}
+    <section class="box" style="margin-top: 2rem;">
+      <h3>Translation Result</h3>
+      <p><strong>Input:</strong> {{ source_text }}</p>
+      <p><strong>Translation:</strong> {{ translation }}</p>
+    </section>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
