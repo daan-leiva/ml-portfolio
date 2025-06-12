@@ -87,7 +87,7 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
         return f"API error: {e}"
 
 @app.route('/projects/translate', methods=['GET', 'POST'])
-def predict():
+def translate_view():
     if request.method == 'POST':
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
