@@ -72,10 +72,6 @@ def predict():
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')
 
-# Load model once at startup
-TRANSLATION_MODEL_PATH = "checkpoints/en_fr_run3/en_fr_medium_d256_v8k_20250611_065619/best_model.pt"
-translator = load_checkpoint_and_tokenizer(TRANSLATION_MODEL_PATH)
-
 def call_translation_api(text, decode_type='beam', beam_size=5):
     payload = {
         'text': text,
