@@ -59,7 +59,7 @@ def predict():
             return 'Invalid input. Please enter valid numebers.'
     
         # send to SageMaker
-        runtime = boto3.client('sagemaker-runtime')
+        runtime = boto3.client      ('sagemaker-runtime')
         payload = json.dumps({'data': [features]})
         response = runtime.invoke_endpoint(
             EndpointName=ENDPOINT_NAME,
@@ -89,6 +89,7 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
 
 @app.route('/projects/translate', methods=['GET', 'POST'])
 def translate():
+    print('aaaaaaaaaaaa')
     if request.method == 'POST':
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
