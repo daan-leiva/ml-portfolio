@@ -40,12 +40,10 @@ def capstone():
 
 @app.route('/paper')
 def paper():
-    print('====================================', flush=True)
     return render_template('paper.html')
 
 @app.route('/projects/predict', methods=['GET', 'POST'])
 def predict():
-    print('aaaa')
     if request.method == 'POST':
         if not is_model_ready():
             return render_template('predict.html', error="Model is not ready. Please try again later.")
@@ -75,15 +73,17 @@ def predict():
     return render_template('predict.html')
 
 def call_translation_api(text, decode_type='beam', beam_size=5):
+    print("entered call_translation_api")
     payload = {
         'text': text,
         'decoder_type': decode_type,
         'beam_size':beam_size
     }
     try:
+        print('attempting post call')
         response = requests.post(VM_API_URL, json=payload)
         response.raise_for_status()
-        print(response)
+        print('response: ', response)
         return response.json()['translation'][0]
     
     except requests.RequestException as e:
@@ -91,16 +91,18 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
 
 @app.route('/projects/translate', methods=['GET', 'POST'])
 def translate():
-    print('aaaaaaaaaaaa')
+    print('aaaaaaaaaaaa', flush=True)
     if request.method == 'POST':
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
         beam_size = int(request.form.get('beam_size', 5))
-
+        print("Text: ", text)
+        print('Decode type: ', decode_type)
+        print('beam_size: ', beam_size)
         if not text:
-            return render_template('translate.html', error="Please enter a sentence.")
-        
+            return render_template('translate.html', error="Please enter a sentence.")  
         try:
+            print("Before calling translation api")
             results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
             print(results)
             return render_template('translate.html', original=text, translated=results,
