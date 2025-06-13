@@ -113,7 +113,7 @@ def is_model_ready():
     now = time.time()
     if now - endpoint_cache['last_checked'] > 60: # once per minute
         sm_client = boto3.client('sagemaker')
-        status = sm_client.describe_endpoint(ENDPOINT_NAME=ENDPOINT_NAME)['EndpointStatus']
+        status = sm_client.describe_endpoint(EndpointName=ENDPOINT_NAME)['EndpointStatus']
         endpoint_cache['status'] = status
         endpoint_cache['last_checked'] = now
     return endpoint_cache['status'] == 'InService'
