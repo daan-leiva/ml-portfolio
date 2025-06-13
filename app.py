@@ -44,6 +44,7 @@ def paper():
 
 @app.route('/projects/predict', methods=['GET', 'POST'])
 def predict():
+    print('aaaa')
     if request.method == 'POST':
         if not is_model_ready():
             return render_template('predict.html', error="Model is not ready. Please try again later.")
