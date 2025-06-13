@@ -40,6 +40,7 @@ def capstone():
 
 @app.route('/paper')
 def paper():
+    print('====================================')
     return render_template('paper.html')
 
 @app.route('/projects/predict', methods=['GET', 'POST'])
