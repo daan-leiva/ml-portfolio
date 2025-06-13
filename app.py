@@ -81,13 +81,14 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
     try:
         response = requests.post(VM_API_URL, json=payload)
         response.raise_for_status()
+        print(response)
         return response.json()['translation'][0]
     
     except requests.RequestException as e:
         return f"API error: {e}"
 
 @app.route('/projects/translate', methods=['GET', 'POST'])
-def translate_view():
+def translate():
     if request.method == 'POST':
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
@@ -98,6 +99,7 @@ def translate_view():
         
         try:
             results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
+            print(results)
             return render_template('translate.html', original=text, translated=results,
                                    decode_type=decode_type, beam_size=beam_size)
         except Exception as e:

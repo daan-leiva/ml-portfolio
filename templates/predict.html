@@ -24,6 +24,13 @@
       <p><em>Example:</em> Input sepal and petal measurements, and the model returns the predicted Iris species.</p>
     </div>
 
+    {% if error %}
+    <div class="box" style="margin-bottom: 2rem; border: 2px solid #f44336; background-color: #ffe6e6;">
+      <h3 style="color: #f44336;">Error</h3>
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
     <form method="POST">
       <div class="fields">
         <div class="field half">
