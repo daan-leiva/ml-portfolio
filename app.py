@@ -97,7 +97,7 @@ def translate():
         try:
             results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
             print(results, flush=True)
-            return render_template('translate.html', original=text, translation=results[0],
+            return render_template('translate.html', source_text=text, translation=results[0],
                                    decode_type=decode_type, beam_size=beam_size)
         except Exception as e:
             return render_template('translate.html', error=str(e))

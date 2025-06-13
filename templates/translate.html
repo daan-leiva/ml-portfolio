@@ -33,13 +33,13 @@
       <div class="fields">
         <div class="field">
           <label for="source_text">Enter English Sentence</label>
-          <textarea name="source_text" id="source_text" rows="3" required>{{ request.form.source_text or '' }}</textarea>
+          <textarea name="source_text" id="source_text" rows="3" required>{{ source_text or '' }}</textarea>
         </div>
         <div class="field">
           <label for="decode_type">Decoding Method</label>
           <select name="decode_type" id="decode_type">
-            <option value="beam" {% if request.form.decode_type == "beam" %}selected{% endif %}>Beam Search</option>
-            <option value="greedy" {% if request.form.decode_type == "greedy" %}selected{% endif %}>Greedy Decoding</option>
+            <option value="beam" {% if decode_type == "beam" %}selected{% endif %}>Beam Search</option>
+            <option value="greedy" {% if decode_type == "greedy" %}selected{% endif %}>Greedy Decoding</option>
           </select>
         </div>
       </div>
