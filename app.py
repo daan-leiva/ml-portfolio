@@ -73,17 +73,17 @@ def predict():
     return render_template('predict.html')
 
 def call_translation_api(text, decode_type='beam', beam_size=5):
-    print("entered call_translation_api")
+    print("entered call_translation_api", flush=True)
     payload = {
         'text': text,
         'decoder_type': decode_type,
         'beam_size':beam_size
     }
     try:
-        print('attempting post call')
+        print('attempting post call', flush=True)
         response = requests.post(VM_API_URL, json=payload)
         response.raise_for_status()
-        print('response: ', response)
+        print('response: ', response, flush=True)
         return response.json()['translation'][0]
     
     except requests.RequestException as e:
@@ -96,15 +96,15 @@ def translate():
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
         beam_size = int(request.form.get('beam_size', 5))
-        print("Text: ", text)
-        print('Decode type: ', decode_type)
-        print('beam_size: ', beam_size)
+        print("Text: ", text, flush=True)
+        print('Decode type: ', decode_type, flush=True)
+        print('beam_size: ', beam_size, flush=True)
         if not text:
             return render_template('translate.html', error="Please enter a sentence.")  
         try:
-            print("Before calling translation api")
+            print("Before calling translation api", flush=True)
             results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
-            print(results)
+            print(results, flush=True)
             return render_template('translate.html', original=text, translated=results,
                                    decode_type=decode_type, beam_size=beam_size)
         except Exception as e:
