@@ -72,9 +72,10 @@ def predict():
         return render_template('predict.html', prediction=prediction, features=features)
     return render_template('predict.html')
 
-def call_translation_api(text, decode_type='beam', beam_size=5):
+def call_translation_api(text, target_language='fr', decode_type='beam', beam_size=5):
     payload = {
         'text': text,
+        'target_language' : target_language,
         'decoder_type': decode_type,
         'beam_size':beam_size
     }
@@ -98,6 +99,7 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
 def translate():
     if request.method == 'POST':
         text = request.form.get('source_text', '').strip()
+        target_language = request.form.get('target_language', 'fr')
         decode_type = request.form.get('decode_type', 'beam')
         beam_size = int(request.form.get('beam_size', 5))
 
@@ -105,6 +107,7 @@ def translate():
             return render_template('translate.html', error="Please enter a sentence.")  
         try:
             results, input_tokens, output_tokens, attention_matrix = call_translation_api([text],
+                                                                                    target_language=target_language,
                                                                                     decode_type=decode_type,
                                                                                     beam_size=beam_size)
             #print("attention: ", attention_matrix, flush=True)

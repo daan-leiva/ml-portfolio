@@ -36,6 +36,13 @@
           <textarea name="source_text" id="source_text" rows="3" required>{{ source_text or '' }}</textarea>
         </div>
         <div class="field">
+          <label for="target_language">Target Language</label>
+          <select name="target_language" id="target_language">
+            <option value="fr" {% if target_language == "fr" %}selected{% endif %}>French</option>
+            <option value="de" {% if target_language == "de" %}selected{% endif %}>German</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="decode_type">Decoding Method</label>
           <select name="decode_type" id="decode_type">
             <option value="beam" {% if decode_type == "beam" %}selected{% endif %}>Beam Search</option>
