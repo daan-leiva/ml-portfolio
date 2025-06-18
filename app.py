@@ -59,7 +59,7 @@ def predict():
             return 'Invalid input. Please enter valid numebers.'
     
         # send to SageMaker
-        runtime = boto3.client      ('sagemaker-runtime')
+        runtime = boto3.client('sagemaker-runtime')
         payload = json.dumps({'data': [features]})
         response = runtime.invoke_endpoint(
             EndpointName=ENDPOINT_NAME,
@@ -81,10 +81,18 @@ def call_translation_api(text, decode_type='beam', beam_size=5):
     try:
         response = requests.post(VM_API_URL, json=payload)
         response.raise_for_status()
-        return response.json()['translation'][0]
-    
-    except requests.RequestException as e:
-        return f"API error: {e}"
+        json_response = response.json()
+        #print(json_response['attentions'][0][0])
+        return (json_response['translation'][0][0], json_response['input_tokens'][0],
+                json_response['output_tokens'][0], json_response['attentions'][0][0])
+    except requests.HTTPError as http_err:
+        print("HTTP error occurred:", http_err)
+        print("Response content:", response.text)
+        raise
+    except Exception as e:
+        print("Other error occurred:", e)
+        raise
+
 
 @app.route('/projects/translate', methods=['GET', 'POST'])
 def translate():
@@ -92,12 +100,17 @@ def translate():
         text = request.form.get('source_text', '').strip()
         decode_type = request.form.get('decode_type', 'beam')
         beam_size = int(request.form.get('beam_size', 5))
+
         if not text:
             return render_template('translate.html', error="Please enter a sentence.")  
         try:
-            results = call_translation_api([text], decode_type=decode_type, beam_size=beam_size)
-            print(results, flush=True)
-            return render_template('translate.html', source_text=text, translation=results[0],
+            results, input_tokens, output_tokens, attention_matrix = call_translation_api([text],
+                                                                                    decode_type=decode_type,
+                                                                                    beam_size=beam_size)
+            #print("attention: ", attention_matrix, flush=True)
+            return render_template('translate.html', source_text=text, translation=results,
+                                   input_tokens=input_tokens, output_tokens=output_tokens,
+                                   attentions=attention_matrix,
                                    decode_type=decode_type, beam_size=beam_size)
         except Exception as e:
             return render_template('translate.html', error=str(e))

@@ -42,6 +42,11 @@
             <option value="greedy" {% if decode_type == "greedy" %}selected{% endif %}>Greedy Decoding</option>
           </select>
         </div>
+        <div class="field">
+          <label for="beam_size">Beam Size</label>
+          <input type="number" name="beam_size" id="beam_size" min="1" max="20"
+                value="{{ beam_size or 5 }}">
+        </div>
       </div>
 
       <ul class="actions">
@@ -50,13 +55,110 @@
     </form>
 
     {% if translation %}
-    <section class="box" style="margin-top: 2rem;">
-      <h3>Translation Result</h3>
-      <p><strong>Input:</strong> {{ source_text }}</p>
-      <p><strong>Translation:</strong> {{ translation }}</p>
-    </section>
+      <section class="box" style="margin-top: 2rem;">
+        <h3>Translation Result</h3>
+        <p><strong>Input:</strong> {{ source_text }}</p>
+        <p><strong>Translation:</strong> {{ translation }}</p>
+
+        {% if attentions %}
+          <div style="margin-top: 2rem;">
+            <h4>Cross-Attention Heatmap (Averaged)</h4>
+            <div id="attention-plot" style="max-width: 100%; overflow-x: auto;"></div>
+
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            <script>
+              // Convert to JS variables
+              const rawAttn = {{ attentions|tojson|safe }};
+              const inputTokens = {{ input_tokens|tojson|safe }};
+              const outputTokens = {{ output_tokens|tojson|safe }};
+
+              // Average over layers and heads: shape [tgt_len][src_len]
+              let nLayers = rawAttn.length;
+              let nHeads = rawAttn[0].length;
+              let tgtLen = rawAttn[0][0].length;
+              let srcLen = rawAttn[0][0][0].length;
+
+              // Create empty matrix
+              let avgAttn = Array.from({ length: tgtLen }, () =>
+                Array.from({ length: srcLen }, () => 0)
+              );
+
+              // Accumulate over all layers and heads
+              for (let l = 0; l < nLayers; l++) {
+                for (let h = 0; h < nHeads; h++) {
+                  for (let t = 0; t < tgtLen; t++) {
+                    for (let s = 0; s < srcLen; s++) {
+                      avgAttn[t][s] += rawAttn[l][h][t][s];
+                    }
+                  }
+                }
+              }
+
+              // Divide to get average
+              for (let t = 0; t < tgtLen; t++) {
+                for (let s = 0; s < srcLen; s++) {
+                  avgAttn[t][s] /= (nLayers * nHeads);
+                }
+              }
+
+              // Plot
+              const data = [{
+                z: avgAttn,
+                x: inputTokens,
+                y: outputTokens,
+                type: 'heatmap',
+                colorscale: 'Blues',
+                showscale: true
+              }];
+
+              const layout = {
+                margin: { t: 30, l: 120 },
+                xaxis: { title: 'Input Tokens' },
+                yaxis: { title: 'Output Tokens' },
+              };
+
+              Plotly.newPlot('attention-plot', data, layout);
+            </script>
+          </div>
+        {% endif %}
+
+
+        <div style="margin-top: 1.5rem;">
+          <h4>Tokenized Input</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            {% for token in input_tokens %}
+              <span style="background-color: #f0f0f0; padding: 4px 8px; border-radius: 4px; font-family: monospace;">
+                {{ token }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <h4>Model Output Tokens</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            {% for token in output_tokens %}
+              <span style="background-color: #d0e6ff; padding: 4px 8px; border-radius: 4px; font-family: monospace;">
+                {{ token }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
     {% endif %}
 
+
   </div>
+  <script>
+    const decodeSelect = document.getElementById("decode_type");
+    const beamField = document.getElementById("beam_size").parentElement;
+
+    function toggleBeamField() {
+      beamField.style.display = decodeSelect.value === "beam" ? "block" : "none";
+    }
+
+    decodeSelect.addEventListener("change", toggleBeamField);
+    toggleBeamField(); // call on load
+  </script>
 </section>
 {% endblock %}
