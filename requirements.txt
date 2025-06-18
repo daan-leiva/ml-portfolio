@@ -5,11 +5,13 @@ certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.0
 Flask==3.1.1
+gunicorn==23.0.0
 idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6
 jmespath==1.0.1
 MarkupSafe==3.0.2
+packaging==25.0
 python-dateutil==2.9.0.post0
 requests==2.32.4
 s3transfer==0.12.0

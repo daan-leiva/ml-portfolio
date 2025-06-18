@@ -129,6 +129,8 @@ def is_model_ready():
         endpoint_cache['last_checked'] = now
     return endpoint_cache['status'] == 'InService'
 
+# for local testing
 if __name__ == '__main__':
+    # removed when switching to gunicorn
     port = int(os.environ.get("PORT", 10000))  # Render will set PORT env var
     app.run(host='0.0.0.0', port=port, debug=True)
