@@ -7,8 +7,8 @@
   <div class="inner">
 
     <header class="major">
-      <h1>Translate English to French</h1>
-      <p>Use our custom Transformer model trained on WMT16 to translate English sentences into French.</p>
+      <h1>Translate English to French/German</h1>
+      <p>Use our custom Transformer model trained on WMT17 to translate English sentences into French/German.</p>
     </header>
 
     <div class="box" style="margin-bottom: 2rem;">
@@ -16,7 +16,7 @@
       <p>This demo uses a PyTorch Transformer trained from scratch with subword tokenization and beam search decoding.</p>
       <ul>
         <li>Model: Transformer with beam/greedy decoding</li>
-        <li>Trained on: WMT16 EN→FR</li>
+        <li>Trained on: WMT16 EN→FR/DE</li>
         <li>Decoding: Configurable between greedy and beam search</li>
         <li>Deployed on: Local VM via Flask API</li>
       </ul>
@@ -69,7 +69,18 @@
 
         {% if attentions %}
           <div style="margin-top: 2rem;">
-            <h4>Cross-Attention Heatmap (Averaged)</h4>
+            <div style="margin-top: 2rem;">
+              <h4>Interactive Cross-Attention Viewer</h4>
+
+              <label for="layer-select">Select Layer:</label>
+              <select id="layer-select"></select>
+
+              <label for="head-select">Select Head:</label>
+              <select id="head-select"></select>
+              
+              <div id="interactive-attention-plot" style="margin-top: 1rem; max-width: 100%; overflow-x: auto;"></div>
+            </div>
+            <h4 style="margin-top: 3rem;">Cross-Attention Heatmap (Averaged)</h4>
             <div id="attention-plot" style="max-width: 100%; overflow-x: auto;"></div>
 
             <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -156,6 +167,8 @@
 
 
   </div>
+
+  <!-- Decode method toggle (always rendered) -->
   <script>
     const decodeSelect = document.getElementById("decode_type");
     const beamField = document.getElementById("beam_size").parentElement;
@@ -167,5 +180,62 @@
     decodeSelect.addEventListener("change", toggleBeamField);
     toggleBeamField(); // call on load
   </script>
+
+
+  {% if attentions %}
+  <!-- Interactive attention viewer logic (conditionally rendered) -->
+  <script>
+    const numLayers = rawAttn.length;
+    const numHeads = rawAttn[0].length;
+
+    const layerSelect = document.getElementById('layer-select');
+    const headSelect = document.getElementById('head-select');
+
+    for (let l = 0; l < numLayers; l++) {
+      const option = document.createElement('option');
+      option.value = l;
+      option.textContent = `Layer ${l}`;
+      layerSelect.appendChild(option);
+    }
+
+    for (let h = 0; h < numHeads; h++) {
+      const option = document.createElement('option');
+      option.value = h;
+      option.textContent = `Head ${h}`;
+      headSelect.appendChild(option);
+    }
+
+    function updateInteractivePlot() {
+      const selectedLayer = parseInt(layerSelect.value);
+      const selectedHead = parseInt(headSelect.value);
+      const attnMatrix = rawAttn[selectedLayer][selectedHead];
+
+      const data = [{
+        z: attnMatrix,
+        x: inputTokens,
+        y: outputTokens,
+        type: 'heatmap',
+        colorscale: 'Viridis',
+        hoverongaps: false,
+        showscale: true,
+        hovertemplate: '%{y} attends to %{x}: %{z:.3f}<extra></extra>'
+      }];
+
+      const layout = {
+        title: `Layer ${selectedLayer}, Head ${selectedHead}`,
+        margin: { t: 50, l: 120 },
+        xaxis: { title: 'Input Tokens' },
+        yaxis: { title: 'Output Tokens' },
+      };
+
+      Plotly.newPlot('interactive-attention-plot', data, layout);
+    }
+
+    updateInteractivePlot();
+    layerSelect.addEventListener('change', updateInteractivePlot);
+    headSelect.addEventListener('change', updateInteractivePlot);
+  </script>
+  {% endif %}
+
 </section>
 {% endblock %}

@@ -5,6 +5,7 @@ import json
 import logging
 import time
 import requests
+import numpy as np
 
 logging.basicConfig(level=logging.INFO)
 
@@ -107,14 +108,14 @@ def translate():
             return render_template('translate.html', error="Please enter a sentence.")  
         try:
             results, input_tokens, output_tokens, attention_matrix = call_translation_api([text],
-                                                                                    target_language=target_language,
-                                                                                    decode_type=decode_type,
-                                                                                    beam_size=beam_size)
-            #print("attention: ", attention_matrix, flush=True)
+                                                                                        target_language=target_language,
+                                                                                        decode_type=decode_type,
+                                                                                        beam_size=beam_size)
+            
             return render_template('translate.html', source_text=text, translation=results,
                                    input_tokens=input_tokens, output_tokens=output_tokens,
-                                   attentions=attention_matrix,
-                                   decode_type=decode_type, beam_size=beam_size)
+                                   attentions=attention_matrix, decode_type=decode_type,
+                                   beam_size=beam_size)
         except Exception as e:
             return render_template('translate.html', error=str(e))
 
