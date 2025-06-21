@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}ML Portfolio Website{% endblock %}
+
+{% block content %}
+<section class="wrapper style2">
+  <div class="inner">
+    <header class="major">
+      <h1>ML Portfolio Website</h1>
+      <p>This site serves as a full-stack showcase of machine learning deployments and interactive demos.</p>
+    </header>
+
+    <div class="box">
+      <h2>Project Overview</h2>
+      <p>
+        This portfolio website was built from scratch using <strong>Flask</strong> (Python web framework), <strong>Jinja2</strong> templating, and <strong>HTML/CSS</strong>.
+        It is deployed on <strong>Render</strong> and integrates two live machine learning demos:
+      </p>
+      <ul>
+        <li>A SageMaker-hosted <strong>Iris Classifier</strong> with real-time prediction</li>
+        <li>A GCP-hosted <strong>Transformer</strong> model for English to French/German translation</li>
+      </ul>
+      <p>
+        The site also features attention visualizations, custom JS for dynamic interactivity, and modular routing for easy expansion.
+      </p>
+    </div>
+
+    <div class="box" style="margin-top: 2rem;">
+      <h3>Technologies Used</h3>
+      <ul>
+        <li><strong>Frontend:</strong> HTML, CSS, Jinja2, Plotly.js</li>
+        <li><strong>Backend:</strong> Python, Flask</li>
+        <li><strong>ML Frameworks:</strong> PyTorch, scikit-learn</li>
+        <li><strong>Deployment:</strong> Render (Web), AWS SageMaker (Iris), GCP (Transformer API)</li>
+      </ul>
+    </div>
+
+    <div class="box" style="margin-top: 2rem;">
+      <h3>GitHub Repository</h3>
+      <p>
+        You can explore the full source code for the portfolio, including all ML integrations, on GitHub:
+      </p>
+      <a href="https://github.com/daan-leiva/ml-portfolio" target="_blank" class="button">View on GitHub</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

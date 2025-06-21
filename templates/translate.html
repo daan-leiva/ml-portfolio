@@ -9,7 +9,13 @@
     <header class="major">
       <h1>Translate English to French/German</h1>
       <p>Use our custom Transformer model trained on WMT17 to translate English sentences into French/German.</p>
+      <h1>
+        <a href="https://github.com/daan-leiva/alpha-transformer" target="_blank" class="button small">
+          View on GitHub
+        </a>
+      </h1>
     </header>
+
 
     <div class="box" style="margin-bottom: 2rem;">
       <h2>Custom Transformer Inference</h2>
@@ -60,6 +66,9 @@
         <li><input type="submit" value="Translate" class="primary" /></li>
       </ul>
     </form>
+
+    
+
 
     {% if translation %}
       <section class="box" style="margin-top: 2rem;">
@@ -140,6 +149,8 @@
           </div>
         {% endif %}
 
+        <h4 style="margin-top: 3rem;">Token Alignment Mapping</h4>
+        <div id="token-alignment" style="max-width: 100%; overflow-x: auto;"></div>
 
         <div style="margin-top: 1.5rem;">
           <h4>Tokenized Input</h4>
@@ -165,6 +176,34 @@
       </section>
     {% endif %}
 
+    <hr style="margin-top: 4rem;">
+
+    <div id="diagram-container" style="margin-top: 3rem;">
+      <h2>Transformer Architecture Diagram</h2>
+      <p>This diagram illustrates the custom Transformer architecture used in our EN→FR/DE model, including Encoder/Decoder blocks, multi-head attention, and positional encodings.</p>
+
+      <div id="diagram-wrapper" style="
+        border: 1px solid #ccc;
+        overflow: scroll;
+        width: 100%;
+        max-height: 2000px;
+        background-color: #fff;
+        padding: 1rem;
+      ">
+        <img id="transformer-svg"
+            src="{{ url_for('static', filename='my_images/transformer.svg') }}"
+            alt="Transformer Diagram"
+            style="width: 100%; height: auto; transform-origin: top left;" />
+      </div>
+
+      <div style="margin-top: 0.5rem;">
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+        <button onclick="resetZoom()">Reset</button>
+      </div>
+    </div>
+
+    
 
   </div>
 
@@ -235,7 +274,95 @@
     layerSelect.addEventListener('change', updateInteractivePlot);
     headSelect.addEventListener('change', updateInteractivePlot);
   </script>
+
+  <script>
+  const inputY = 1;
+  const outputY = 0;
+  const alignmentData = [];
+  const alignmentLines = [];
+
+  const threshold = 0.33; // Only show alignments with attention > 0.3
+
+  // Display input tokens at the top
+  inputTokens.forEach((token, i) => {
+    alignmentData.push({
+      x: [i],
+      y: [inputY],
+      mode: "text",
+      text: [token],
+      textposition: "top center",
+      showlegend: false
+    });
+  });
+
+  // Display output tokens at the bottom
+  outputTokens.forEach((token, j) => {
+    alignmentData.push({
+      x: [j],
+      y: [outputY],
+      mode: "text",
+      text: [token],
+      textposition: "bottom center",
+      showlegend: false
+    });
+
+    // Check all input tokens for this output token
+    for (let i = 0; i < inputTokens.length; i++) {
+      const attnWeight = avgAttn[j][i];
+      if (attnWeight >= threshold) {
+        alignmentLines.push({
+          type: 'line',
+          x0: i,
+          y0: inputY,
+          x1: j,
+          y1: outputY,
+          line: {
+            color: 'gray',
+            width: 1,
+            dash: 'dot'
+          }
+        });
+      }
+    }
+  });
+
+  const layoutAlign = {
+    showlegend: false,
+    shapes: alignmentLines,
+    xaxis: { showgrid: false, zeroline: false, showticklabels: false },
+    yaxis: { showgrid: false, zeroline: false, showticklabels: false },
+    margin: { l: 10, r: 10, t: 10, b: 10 },
+    height: 200
+  };
+
+  Plotly.newPlot('token-alignment', alignmentData, layoutAlign);
+</script>
+
   {% endif %}
+
+  <script>
+      let zoomLevel = 1.0;
+
+      function zoomIn() {
+        zoomLevel *= 1.1;
+        applyZoom();
+      }
+
+      function zoomOut() {
+        zoomLevel /= 1.1;
+        applyZoom();
+      }
+
+      function resetZoom() {
+        zoomLevel = 1.0;
+        applyZoom();
+      }
+
+      function applyZoom() {
+        const img = document.getElementById("transformer-svg");
+        img.style.transform = `scale(${zoomLevel})`;
+      }
+    </script>
 
 </section>
 {% endblock %}

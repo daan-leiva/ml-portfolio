@@ -121,6 +121,12 @@ def translate():
 
     return render_template('translate.html')
 
+
+@app.route('/projects/portfolio')
+def portfolio():
+    return render_template('portfolio.html')
+
+
 def is_model_ready():
     now = time.time()
     if now - endpoint_cache['last_checked'] > 60: # once per minute

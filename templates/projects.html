@@ -6,11 +6,22 @@
 <section class="wrapper style2">
   <div class="inner">
     <header class="major">
-      <h1>Projects</h1>
+      <h2>Projects</h2>
       <p>Explore machine learning models and cloud-deployed apps I've built.</p>
     </header>
 
     <div class="features">
+      <section>
+        <h3>English → French/German Translator (Alpha Transformer)</h3>
+        <p>
+          A custom-built Transformer model trained on the WMT16 dataset using PyTorch. The model uses BPE tokenization and supports both greedy and beam search decoding. 
+          Served via a GCP-hosted Flask API and integrated into this portfolio frontend.
+        </p>
+        <ul class="actions">
+          <li><a href="{{ url_for('translate') }}" class="button">Try It</a></li>
+        </ul>
+      </section>
+
       <section>
         <h3>Iris Classifier</h3>
         <p>
@@ -23,13 +34,12 @@
       </section>
 
       <section>
-        <h3>English → French/German Translator (Alpha Transformer)</h3>
+        <h3>ML Portfolio Website</h3>
         <p>
-          A custom-built Transformer model trained on the WMT16 dataset using PyTorch. The model uses BPE tokenization and supports both greedy and beam search decoding. 
-          Served via a GCP-hosted Flask API and integrated into this portfolio frontend.
+          This website was built from scratch using Flask, Jinja2, and custom HTML/CSS, and is hosted on Render. It integrates live machine learning demos, model visualizations, and a responsive frontend for showcasing AI projects.
         </p>
         <ul class="actions">
-          <li><a href="{{ url_for('translate') }}" class="button">Try It</a></li>
+          <li><a href="{{ url_for('portfolio') }}" class="button">Learn More</a></li>
         </ul>
       </section>
 
