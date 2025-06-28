@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Chest X-ray Classifier - MedImg CNN{% endblock %}
+
+{% block content %}
+<section class="wrapper style2">
+  <div class="inner">
+
+    <header class="major">
+      <h2>Chest X-ray Image Classifier</h2>
+      <h3>Detect potential pathologies using a CNN trained on the NIH Chest X-ray14 dataset.</h3>
+      <h1>
+        <a href="https://github.com/daan-leiva/medimg_cnn" target="_blank" class="button small">
+          View on GitHub
+        </a>
+      </h1>
+    </header>
+
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Project Overview</h2>
+      <ul>
+        <li><strong>Model:</strong> Custom CNN with augmentation and mixed precision</li>
+        <li><strong>Dataset:</strong> NIH Chest X-ray14 (112k+ labeled chest images)</li>
+        <li><strong>Classes:</strong> Multi-label output (14 thoracic diseases)</li>
+        <li><strong>Deployment:</strong> Flask API hosted on AWS EC3 (GPU-backed)</li>
+      </ul>
+    </div>
+
+    {% if error %}
+    <div class="box" style="margin-bottom: 2rem; border: 2px solid #f44336; background-color: #ffe6e6;">
+      <h3 style="color: #f44336;">Error</h3>
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+      <div class="field">
+        <label for="image">Upload Chest X-ray Image</label>
+        <input type="file" name="image" id="image" accept="image/*" required>
+      </div>
+      <div class="field">
+        <label for="model_size">Choose Model Size</label>
+        <select name="model_size" id="model_size" required>
+          <option value="" disabled selected>Select model</option>
+          <option value="small">Small (faster inference)</option>
+          <option value="large">Large (higher accuracy)</option>
+        </select>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Classify" class="primary" /></li>
+      </ul>
+    </form>
+
+    {% if prediction%}
+    <section class="box" style="margin-top: 2rem;">
+      <h3>Classification Result</h3>
+      <p><strong>Uploaded Image:</strong></p>
+      <img src="{{ image_url }}" alt="X-ray" style="max-width: 400px; border: 1px solid #ccc; margin-bottom: 1rem;">
+
+      <p><strong>Prediction:</strong> {{ prediction }} with {{ confidence }}% confidence</p>
+      <p><strong>Model Used:</strong> {{ model_size|capitalize }}</p>
+      <p><strong>Inference Time:</strong> {{ inference_time }} ms</p>
+
+      <h3>Grad-CAM Heatmap</h3>
+      <img src="{{ heatmap_url }}" alt="Grad-CAM" style="max-width: 100%; border: 1px solid #ccc;">
+
+      <div class="box" style="margin-top: 2rem;">
+        <h3>Model Architecture Diagram</h3>
+        <p>This diagram shows the structure of the selected CNN classifier, exported from the trained PyTorch model.</p>
+        <img src="{{ url_for('static', filename='my_images/exports_medcnn_' + model_size + '.svg') }}" alt="Model Architecture" style="max-width: 100%;">
+      </div>
+    </section>
+
+    {% endif %}
+
+    
+
+    <hr style="margin-top: 4rem;">
+    <p style="text-align: center; font-size: 0.9rem;">This project is for educational and demonstration purposes only. It is not a diagnostic tool.</p>
+
+  </div>
+</section>
+{% endblock %}

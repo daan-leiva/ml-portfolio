@@ -5,7 +5,7 @@ import json
 import logging
 import time
 import requests
-import numpy as np
+import base64
 
 logging.basicConfig(level=logging.INFO)
 
@@ -17,7 +17,8 @@ endpoint_cache = {
 }
 
 ENDPOINT_NAME = 'ml-model-endpoint'
-VM_API_URL = 'http://35.212.198.98:5000/translate'
+VM_API_URL = 'http://35.212.144.2:5000/translate'
+EC3_MEDIMG_API_URL = 'http://52.43.213.4:5000/predict_medimg'
 
 @app.route('/')
 def home():
@@ -95,7 +96,6 @@ def call_translation_api(text, target_language='fr', decode_type='beam', beam_si
         print("Other error occurred:", e)
         raise
 
-
 @app.route('/projects/translate', methods=['GET', 'POST'])
 def translate():
     if request.method == 'POST':
@@ -121,11 +121,55 @@ def translate():
 
     return render_template('translate.html')
 
+@app.route('/projects/medimg2', methods=['GET', 'POST'])
+def medimg2():
+    if request.method == 'POST':
+        try:
+            file = request.files['image']
+            # Send file using multipart/form-data
+            response = requests.post(EC3_MEDIMG_API_URL, files={'image': file})
+            result = response.json()
+            return render_template('medimg.html', prediction=result['prediction'])
+        except Exception as e:
+            return render_template('medimg.html', error=str(e))
+
+    return render_template('medimg.html')
+
+@app.route('/projects/medimg', methods=['GET', 'POST'])
+def medimg():
+    if request.method == 'POST':
+        try:
+            file = request.files['image']
+            model_size = request.form.get('model_size', '').lower()
+
+            if model_size not in ['small', 'large']:
+                raise ValueError("Invalid model size selected.")
+            
+            response = requests.post(EC3_MEDIMG_API_URL, files={'image': file}, data={'model_size': model_size})
+            result = response.json()
+
+            label = "PNEUMONIA" if result['prediction'] == 1 else "NORMAL"
+            confidence = result['confidence']
+            heatmap = result['heatmap']  # base64 encoded PNG
+            inference_time = result['inference_time']  # in ms
+
+            # Convert file to base64 for display
+            file.seek(0)
+            image_b64 = base64.b64encode(file.read()).decode('utf-8')
+
+            return render_template('medimg.html', prediction=label, confidence=confidence,
+                                   image_url='data:image/png;base64,' + image_b64,
+                                   heatmap_url='data:image/png;base64,' + heatmap,
+                                   inference_time=inference_time, model_size=model_size)
+        except Exception as e:
+            return render_template('medimg.html', error=str(e))
+    return render_template('medimg.html')
+
+
 
 @app.route('/projects/portfolio')
 def portfolio():
     return render_template('portfolio.html')
-
 
 def is_model_ready():
     now = time.time()

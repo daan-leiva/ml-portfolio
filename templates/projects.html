@@ -7,15 +7,16 @@
   <div class="inner">
     <header class="major">
       <h2>Projects</h2>
-      <p>Explore machine learning models and cloud-deployed apps I've built.</p>
+      <p>Explore machine learning models and cloud-deployed apps I've built, covering NLP, computer vision, and cloud deployment workflows.</p>
     </header>
 
     <div class="features">
+      
       <section>
         <h3>English → French/German Translator (Alpha Transformer)</h3>
         <p>
-          A custom-built Transformer model trained on the WMT16 dataset using PyTorch. The model uses BPE tokenization and supports both greedy and beam search decoding. 
-          Served via a GCP-hosted Flask API and integrated into this portfolio frontend.
+          A Transformer model built from scratch in PyTorch and trained on WMT16. It includes multi-head attention, positional encoding, subword tokenization, and beam/greedy decoding.
+          Hosted on a GCP virtual machine and served via Flask, this project features cross-attention visualizations and token alignment graphics.
         </p>
         <ul class="actions">
           <li><a href="{{ url_for('translate') }}" class="button">Try It</a></li>
@@ -23,10 +24,20 @@
       </section>
 
       <section>
-        <h3>Iris Classifier</h3>
+        <h3>Chest X-ray Classifier (MedImg CNN)</h3>
         <p>
-          A full-stack ML deployment using AWS SageMaker and Flask. Trains a Random Forest on the Iris dataset, packages the model, deploys it to the cloud,
-          and integrates it into a web form.
+          A deep convolutional neural network trained on the NIH Chest X-ray14 dataset to detect common thoracic diseases from radiographic images.
+          The model is deployed via an EC3 GPU instance and accepts image input directly from the user for inference. Frontend integrates with Flask for upload, display, and prediction.
+        </p>
+        <ul class="actions">
+          <li><a href="{{ url_for('medimg') }}" class="button">Try It</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Iris Flower Classifier</h3>
+        <p>
+          A lightweight Random Forest classifier trained on the Iris dataset and deployed using AWS SageMaker. Demonstrates end-to-end ML deployment, including input handling, REST API usage, and live prediction through Flask integration.
         </p>
         <ul class="actions">
           <li><a href="{{ url_for('predict') }}" class="button">Try It</a></li>
@@ -36,7 +47,8 @@
       <section>
         <h3>ML Portfolio Website</h3>
         <p>
-          This website was built from scratch using Flask, Jinja2, and custom HTML/CSS, and is hosted on Render. It integrates live machine learning demos, model visualizations, and a responsive frontend for showcasing AI projects.
+          This website was built from scratch using Flask, Jinja2, and custom HTML/CSS. It integrates live demos, attention visualizations, and project write-ups.
+          Hosted on Render, it serves as both a portfolio and a real-time ML testing interface.
         </p>
         <ul class="actions">
           <li><a href="{{ url_for('portfolio') }}" class="button">Learn More</a></li>
@@ -46,12 +58,13 @@
       <section>
         <h3>Coming Soon</h3>
         <p>
-          More machine learning projects and cloud-based applications will be added here.
+          Future additions include a BERT-based sentiment classifier, a YOLOv8 object detection demo, and a full MLOps pipeline with CI/CD.
         </p>
         <ul class="actions">
           <li><a href="#" class="button disabled">Under Construction</a></li>
         </ul>
       </section>
+
     </div>
   </div>
 </section>
