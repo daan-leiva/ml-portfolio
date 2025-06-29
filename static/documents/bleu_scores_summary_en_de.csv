@@ -1,0 +1,7 @@
+Lang,Path,Model Size,D_model,Vocab Size,Epoch,BLEU Score
+de,en_de_medium_d256_v8k,medium,256,8000,19,22.131107981154745
+de,en_de_small_d128_v32k,small,128,32000,19,14.196772567501714
+de,en_de_small_d128_v16k,small,128,16000,18,12.256062254232955
+de,en_de_small_d128_v8k,small,128,8000,19,9.333091493979833
+de,en_de_medium_d256_v16k,medium,256,16000,5,0.16808267398446355
+de,en_de_medium_d256_v32k,medium,256,32000,0,0.1344521089022474

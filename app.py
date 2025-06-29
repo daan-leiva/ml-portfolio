@@ -17,8 +17,8 @@ endpoint_cache = {
 }
 
 ENDPOINT_NAME = 'ml-model-endpoint'
-VM_API_URL = 'http://35.212.144.2:5000/translate'
-EC3_MEDIMG_API_URL = 'http://52.43.213.4:5000/predict_medimg'
+VM_API_URL = 'http://35.212.142.147:5000/translate'
+EC3_MEDIMG_API_URL = 'http://34.208.35.68:5000/predict_medimg'
 
 @app.route('/')
 def home():
@@ -121,20 +121,6 @@ def translate():
 
     return render_template('translate.html')
 
-@app.route('/projects/medimg2', methods=['GET', 'POST'])
-def medimg2():
-    if request.method == 'POST':
-        try:
-            file = request.files['image']
-            # Send file using multipart/form-data
-            response = requests.post(EC3_MEDIMG_API_URL, files={'image': file})
-            result = response.json()
-            return render_template('medimg.html', prediction=result['prediction'])
-        except Exception as e:
-            return render_template('medimg.html', error=str(e))
-
-    return render_template('medimg.html')
-
 @app.route('/projects/medimg', methods=['GET', 'POST'])
 def medimg():
     if request.method == 'POST':
@@ -164,8 +150,6 @@ def medimg():
         except Exception as e:
             return render_template('medimg.html', error=str(e))
     return render_template('medimg.html')
-
-
 
 @app.route('/projects/portfolio')
 def portfolio():

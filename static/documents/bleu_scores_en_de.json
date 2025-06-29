@@ -1,0 +1,56 @@
+[
+  {
+    "Lang":"de",
+    "Path":"en_de_medium_d256_v8k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":8000,
+    "Epoch":19,
+    "BLEU Score":22.1311079812
+  },
+  {
+    "Lang":"de",
+    "Path":"en_de_small_d128_v32k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":32000,
+    "Epoch":19,
+    "BLEU Score":14.1967725675
+  },
+  {
+    "Lang":"de",
+    "Path":"en_de_small_d128_v16k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":16000,
+    "Epoch":18,
+    "BLEU Score":12.2560622542
+  },
+  {
+    "Lang":"de",
+    "Path":"en_de_small_d128_v8k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":8000,
+    "Epoch":19,
+    "BLEU Score":9.333091494
+  },
+  {
+    "Lang":"de",
+    "Path":"en_de_medium_d256_v16k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":16000,
+    "Epoch":5,
+    "BLEU Score":0.168082674
+  },
+  {
+    "Lang":"de",
+    "Path":"en_de_medium_d256_v32k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":32000,
+    "Epoch":0,
+    "BLEU Score":0.1344521089
+  }
+]

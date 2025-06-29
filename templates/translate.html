@@ -176,6 +176,33 @@
       </section>
     {% endif %}
 
+    <details style="margin-top: 3rem;">
+      <summary style="font-size: 1.2rem; cursor: pointer;">View Model Training & Comparison Charts</summary>
+      <div class="box" style="margin-top: 1rem;">
+        <h3>Model Size & Vocab Comparison</h3>
+        <img src="{{ url_for('static', filename='my_images/bleu_scores_en_fr.png') }}" alt="Model Comparison - French" style="max-width: 100%; margin-bottom: 1rem;">
+        <img src="{{ url_for('static', filename='my_images/bleu_scores_en_de.png') }}" alt="Model Comparison - German" style="max-width: 100%;">
+      </div>
+
+      <div class="box" style="margin-top: 2rem;">
+        <h3>Training Metrics (Loss, BLEU)</h3>
+        <img src="{{ url_for('static', filename='my_images/training_curves_fr.png') }}" alt="Training Curve - French" style="max-width: 100%; margin-bottom: 1rem;">
+        <img src="{{ url_for('static', filename='my_images/training_curves_de.png') }}" alt="Training Curve - German" style="max-width: 100%;">
+      </div>
+
+      <div id="csv-tables" style="margin-top: 2rem;">
+        <h3>BLEU Score Summary Tables</h3>
+
+        <h4>EN → FR</h4>
+        <table id="fr-table" class="comparison-table"></table>
+
+        <h4 style="margin-top: 2rem;">EN → DE</h4>
+        <table id="de-table" class="comparison-table"></table>
+      </div>
+
+
+    </details>
+
     <hr style="margin-top: 4rem;">
 
     <div id="diagram-container" style="margin-top: 3rem;">
@@ -218,6 +245,71 @@
 
     decodeSelect.addEventListener("change", toggleBeamField);
     toggleBeamField(); // call on load
+  </script>
+
+  <script>
+    async function loadAndRenderTable(jsonPath, tableId) {
+      try {
+        const response = await fetch(jsonPath);
+        const data = await response.json();
+
+        const table = document.getElementById(tableId);
+
+        if (!data || data.length === 0) {
+          table.innerHTML = '<tr><td>No data found.</td></tr>';
+          return;
+        }
+
+        // Create header row
+        const headers = Object.keys(data[0]);
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+          const th = document.createElement('th');
+          th.textContent = header;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create data rows
+        const tbody = document.createElement('tbody');
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          headers.forEach(header => {
+            const td = document.createElement('td');
+            td.textContent = row[header];
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+      } catch (err) {
+        console.error(`Failed to load ${jsonPath}:`, err);
+      }
+    }
+
+    // Load both tables on page load
+    loadAndRenderTable('/static/documents/bleu_scores_en_fr.json', 'fr-table');
+    loadAndRenderTable('/static/documents/bleu_scores_en_de.json', 'de-table');
+
+    // Toggle chart/table display based on selected language
+    const langSelect = document.getElementById("target_language");
+
+    function updateChartsAndTables() {
+      const lang = langSelect.value;
+
+      document.querySelector('img[alt="Model Comparison - French"]').style.display = (lang === 'fr') ? 'block' : 'none';
+      document.querySelector('img[alt="Model Comparison - German"]').style.display = (lang === 'de') ? 'block' : 'none';
+      document.querySelector('img[alt="Training Curve - French"]').style.display = (lang === 'fr') ? 'block' : 'none';
+      document.querySelector('img[alt="Training Curve - German"]').style.display = (lang === 'de') ? 'block' : 'none';
+
+      document.getElementById('fr-table').style.display = (lang === 'fr') ? 'table' : 'none';
+      document.getElementById('de-table').style.display = (lang === 'de') ? 'table' : 'none';
+    }
+
+    langSelect.addEventListener("change", updateChartsAndTables);
+    updateChartsAndTables();
   </script>
 
 

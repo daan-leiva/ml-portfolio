@@ -1,0 +1,83 @@
+[
+  {
+    "Lang":"fr",
+    "Path":"en_fr_large_d512_v16k",
+    "Model Size":"large",
+    "D_model":512,
+    "Vocab Size":16000,
+    "Epoch":14,
+    "BLEU Score":13.3813197205
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_large_d512_v8k",
+    "Model Size":"large",
+    "D_model":512,
+    "Vocab Size":8000,
+    "Epoch":19,
+    "BLEU Score":13.227015816
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_large_d512_v32k",
+    "Model Size":"large",
+    "D_model":512,
+    "Vocab Size":32000,
+    "Epoch":16,
+    "BLEU Score":12.7537521708
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_medium_d256_v16k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":16000,
+    "Epoch":19,
+    "BLEU Score":11.8129416367
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_medium_d256_v32k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":32000,
+    "Epoch":15,
+    "BLEU Score":11.532043765
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_medium_d256_v8k",
+    "Model Size":"medium",
+    "D_model":256,
+    "Vocab Size":8000,
+    "Epoch":12,
+    "BLEU Score":9.2970423285
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_small_d128_v32k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":32000,
+    "Epoch":18,
+    "BLEU Score":6.6108689077
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_small_d128_v16k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":16000,
+    "Epoch":13,
+    "BLEU Score":5.7619033728
+  },
+  {
+    "Lang":"fr",
+    "Path":"en_fr_small_d128_v8k",
+    "Model Size":"small",
+    "D_model":128,
+    "Vocab Size":8000,
+    "Epoch":14,
+    "BLEU Score":5.2817546701
+  }
+]
