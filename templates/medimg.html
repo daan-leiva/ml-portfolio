@@ -33,16 +33,31 @@
     </div>
     {% endif %}
 
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Try Sample Images</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        {% for img in ['pneumonia_1.jpeg', 'pneumonia_2.jpeg', 'pneumonia_3.jpeg', 'normal_1.jpeg', 'normal_2.jpeg', 'normal_3.jpeg'] %}
+          <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='med_images/' + img) }}" alt="{{ img }}" 
+                style="width: 150px; height: auto; cursor: pointer; border: 2px solid #ccc;"
+                onclick="selectSample('{{ url_for('static', filename='med_images/' + img) }}')">
+            <p style="font-size: 0.8rem;">{{ img.split('.')[0] | replace('_', ' ') | title }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
     <form method="POST" enctype="multipart/form-data">
       <div class="field">
         <label for="image">Upload Chest X-ray Image</label>
-        <input type="file" name="image" id="image" accept="image/*" required>
+        <input type="file" name="image" id="image" accept="image/*">
+        <!--This hidden input is used to pass a sample image URL instead of an uploaded file -->
+        <input type="hidden" name="sample_image_url" id="sample_image_url">
       </div>
       <div class="field">
         <label for="model_size">Choose Model Size</label>
         <select name="model_size" id="model_size" required>
-          <option value="" disabled selected>Select model</option>
-          <option value="small">Small (faster inference)</option>
+          <option value="small" selected>Small (faster inference)</option>
           <option value="large">Large (higher accuracy)</option>
         </select>
       </div>
@@ -73,11 +88,22 @@
 
     {% endif %}
 
-    
-
     <hr style="margin-top: 4rem;">
     <p style="text-align: center; font-size: 0.9rem;">This project is for educational and demonstration purposes only. It is not a diagnostic tool.</p>
 
   </div>
+
+  <script>
+    function selectSample(imageUrl) {
+      // Clear file input
+      document.getElementById("image").value = "";
+
+      // Set sample image URL
+      document.getElementById("sample_image_url").value = imageUrl;
+
+      // Auto-submit
+      document.querySelector("form").submit();
+    }
+  </script>
 </section>
 {% endblock %}
