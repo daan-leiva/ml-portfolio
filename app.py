@@ -32,9 +32,48 @@ def projects():
 def resume():
     return render_template('resume.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        try:
+            # Extract form data
+            name = request.form.get('name', '').strip()
+            email = request.form.get('email', '').strip()
+            message = request.form.get('message', '').strip()
+
+            # Basic validation
+            if not name or not email or not message:
+                return render_template('contact.html', error="All fields are required.")
+
+            # Prepare entry
+            entry = {
+                'name': name,
+                'email': email,
+                'message': message,
+                'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+
+            # Save to local JSON file
+            filepath = 'data/contact_messages.json'
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            if os.path.exists(filepath):
+                with open(filepath, 'r+') as f:
+                    messages = json.load(f)
+                    messages.append(entry)
+                    f.seek(0)
+                    json.dump(messages, f, indent=2)
+            else:
+                with open(filepath, 'w') as f:
+                    json.dump([entry], f, indent=2)
+
+            return render_template('contact.html', success="Message submitted successfully!")
+        
+        except Exception as e:
+            return render_template('contact.html', error=f"An error occurred: {str(e)}")
+
     return render_template('contact.html')
+
+
 
 @app.route('/capstone')
 def capstone():
@@ -49,8 +88,9 @@ def predict():
     # Handle POST request with prediction input
     if request.method == 'POST':
         # Ensure the SageMaker endpoint is live before proceeding
-        if not is_model_ready():
-            return render_template('predict.html', error="Model is not ready. Please try again later.")
+        # deprecated when moved to serverless
+        #if not is_model_ready():
+            #return render_template('predict.html', error="Model is not ready. Please try again later.")
         try:
             # Parse and convert form inputs to floats
             features = [
@@ -63,6 +103,13 @@ def predict():
             # Log and return an error if input values are invalid
             logging.error("Invalid input submitted")
             return 'Invalid input. Please enter valid numbers.'
+        
+        # Map index to flower name
+        label_map = {
+            0: "Setosa",
+            1: "Versicolor",
+            2: "Virginica"
+        }
         
         # Prepare SageMaker runtime client
         runtime = boto3.client('sagemaker-runtime')
@@ -79,7 +126,8 @@ def predict():
         
         # Parse prediction result from response
         result = json.loads(response['Body'].read().decode())
-        prediction = result['predictions'][0]
+        predicted_index = result['predictions'][0]
+        prediction = label_map.get(predicted_index, f"Unknown ({predicted_index})")
 
         # Render the template with prediction result and input features
         return render_template('predict.html', prediction=prediction, features=features)

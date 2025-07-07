@@ -6,8 +6,8 @@
 <section class="wrapper style2">
   <div class="inner">
     <header class="major">
-      <h1>Contact</h1>
-      <p>If you'd like to reach out, feel free to use the info below or drop me a message.</p>
+      <h2>Contact</h2>
+      <h3>If you'd like to reach out, feel free to use the info below or drop me a message.</h3>
     </header>
 
     <div class="split style1">
@@ -29,7 +29,7 @@
       </section>
 
       <section>
-        <form method="post" action="#">
+        <form method="post" action="/contact">
           <div class="fields">
             <div class="field half">
               <label for="name">Name</label>
@@ -49,6 +49,14 @@
           </ul>
         </form>
       </section>
+
+      {% if error %}
+        <div style="color: red; margin-bottom: 1rem;">{{ error }}</div>
+      {% endif %}
+      {% if success %}
+        <div style="color: green; margin-bottom: 1rem;">{{ success }}</div>
+      {% endif %}
+
     </div>
   </div>
 </section>

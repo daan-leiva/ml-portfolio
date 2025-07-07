@@ -7,21 +7,83 @@
   <div class="inner">
 
     <header class="major">
-      <h1>Iris Classifier</h1>
-      <p>Predict the species of an Iris flower based on its measurements using a SageMaker-hosted ML model.</p>
+      <h2>Iris Classifier</h2>
+      <h3>Predict the species of an Iris flower based on its measurements using a SageMaker-hosted ML model.</h3>
+      <h1>
+        <a href="https://github.com/daan-leiva/ml-cloud-models" target="_blank" class="button small">
+          View on GitHub
+        </a>
+      </h1>
     </header>
+
+    <!-- Iris species slideshow -->
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Sample Iris Species</h2>
+      <div class="slideshow-wrapper" style="max-width: 600px; margin: 0 auto;">
+        <div class="slideshow-container">
+          <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='images/iris/setosa.jpg') }}" style="width:100%">
+            <div class="caption" style="text-align: center;">Iris Setosa</div>
+          </div>
+          <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='images/iris/versicolor.jpg') }}" style="width:100%">
+            <div class="caption" style="text-align: center;">Iris Versicolor</div>
+          </div>
+          <div class="mySlides fade">
+            <img src="{{ url_for('static', filename='images/iris/virginica.jpg') }}" style="width:100%">
+            <div class="caption" style="text-align: center;">Iris Virginica</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        let slideIndex = 0;
+        showSlides();
+        function showSlides() {
+          let slides = document.getElementsByClassName("mySlides");
+          for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slideIndex++;
+          if (slideIndex > slides.length) { slideIndex = 1 }
+          slides[slideIndex - 1].style.display = "block";
+          setTimeout(showSlides, 3000);
+        }
+      </script>
+    </div>
 
     <div class="box" style="margin-bottom: 2rem;">
       <h2>ML Cloud Model Deployment</h2>
-      <p>This project demonstrates a complete machine learning deployment pipeline using AWS SageMaker and Flask.</p>
+      <p>This project showcases a full end-to-end ML pipeline using <strong>AWS SageMaker</strong> for deployment and <strong>Flask</strong> for frontend integration.</p>
       <ul>
-        <li>Trains a Random Forest Classifier on the Iris dataset</li>
-        <li>Packages and uploads the model to AWS S3</li>
-        <li>Deploys the model to SageMaker as a persistent endpoint</li>
-        <li>Integrates a Flask web form to send input and receive predictions</li>
-        <li>Provides a test interface through this page</li>
+        <li><strong>Model:</strong> Random Forest Classifier trained on the classic Iris dataset</li>
+        <li><strong>Pipeline:</strong> Model packaged and uploaded to AWS S3, then deployed as a SageMaker endpoint</li>
+        <li><strong>Frontend:</strong> Flask app with an interactive form that submits user input to the live model</li>
       </ul>
-      <p><em>Example:</em> Input sepal and petal measurements, and the model returns the predicted Iris species.</p>
+      <p><em>Try it out:</em> Enter flower measurements below and receive a prediction instantly from the cloud-hosted model.</p>
+    </div>
+
+    <!-- Feature guide -->
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Feature Guide</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div style="flex: 1 1 200px;">
+          <img src="{{ url_for('static', filename='images/iris/sepal_length.jpg') }}" style="width:100%">
+          <p style="text-align:center;"><strong>Sepal Length</strong></p>
+        </div>
+        <div style="flex: 1 1 200px;">
+          <img src="{{ url_for('static', filename='images/iris/sepal_width.jpg') }}" style="width:100%">
+          <p style="text-align:center;"><strong>Sepal Width</strong></p>
+        </div>
+        <div style="flex: 1 1 200px;">
+          <img src="{{ url_for('static', filename='images/iris/petal_length.jpg') }}" style="width:100%">
+          <p style="text-align:center;"><strong>Petal Length</strong></p>
+        </div>
+        <div style="flex: 1 1 200px;">
+          <img src="{{ url_for('static', filename='images/iris/petal_width.jpg') }}" style="width:100%">
+          <p style="text-align:center;"><strong>Petal Width</strong></p>
+        </div>
+      </div>
     </div>
 
     {% if error %}
@@ -65,6 +127,8 @@
       <h3>Prediction Result</h3>
       <p><strong>Predicted Class:</strong> {{ prediction }}</p>
       <p><strong>Input Features:</strong> {{ features }}</p>
+      <img src="{{ url_for('static', filename='images/iris/' + prediction|lower + '.jpg') }}"
+           style="width:100%; max-width:400px; margin-top:1rem;" alt="Predicted Iris Species Image">
     </section>
     {% endif %}
 
