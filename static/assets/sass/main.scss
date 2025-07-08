@@ -163,7 +163,7 @@
 		border-bottom: dotted 1px #62676c;
 
 		&:hover {
-			color: #f35858;
+			color: #324dcb;
 			border-bottom-color: rgba(255, 255, 255, 0);
 		}
 	}
@@ -240,7 +240,7 @@
 
 		> p {
 			display: block;
-			color: #f35858;
+			color: #324dcb;
 			padding: 0.75em 0 1em 0;
 			font-size: 1.5em;
 			line-height: 1.5em;
@@ -571,8 +571,8 @@
 		outline: 0;
 
 		&:hover {
-			color: #f35858;
-			border-color: rgba(243, 88, 88, 0.5);
+			color: #324dcb;
+			border-color: rgba(26, 69, 222, 0.5);
 		}
 	}
 
@@ -640,8 +640,8 @@
 		position: relative;
 		padding: 4em 0 2em 0;
 		background-image: url('images/header.svg');
-		@include vendor('background-image', ('url("images/overlay.png")', 'url("images/header.svg")', 'linear-gradient(75deg, #FF7088 15%, #F2B69D 55%)'));
-		background-color: #f08c89;
+		@include vendor('background-image', ('url("images/overlay.png")', 'url("images/header.svg")', 'linear-gradient(75deg, #2D1188 15%, #859EE9 55%)'));
+		background-color: #1C67B2;
 		background-size: 100% 620%;
 		background-size: 128px 128px, 100% 620%, auto;
 		background-repeat: repeat, no-repeat, no-repeat;
@@ -785,7 +785,7 @@
 
 			&.active {
 				> a, > span {
-					color: #f35858;
+					color: #324dcb;
 				}
 			}
 		}
