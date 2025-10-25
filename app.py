@@ -317,6 +317,12 @@ def is_model_ready():
     # Return True if the model is in service and ready to accept requests
     return endpoint_cache['status'] == 'InService'
 
+@app.route('/projects/paraphrase')
+def paraphrase():
+    # replace with your real Streamlit URL
+    streamlit_url = "https://paraphrase-gen.onrender.com"
+    return render_template('paraphrase.html', streamlit_url=streamlit_url)
+
 
 # Local development entry point
 if __name__ == '__main__':

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Paraphrase Demo{% endblock %}
+
+{% block content %}
+<section class="wrapper style2">
+  <div class="inner">
+
+    <header class="major">
+      <h2>Paraphrase Generator</h2>
+      <h3>Generate alternative phrasings for any sentence (beam or sampling).</h3>
+      <h1>
+        <a href="https://github.com/daan-leiva/paraphrase_gen" target="_blank" class="button small">
+          View on GitHub
+        </a>
+      </h1>
+    </header>
+
+    <!-- About / overview -->
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>About This Project</h2>
+      <p>
+        This demo wraps a fine-tuned T5 model for paraphrasing. It supports both deterministic beam search
+        and diverse sampling with temperature/top-k/top-p. The UI below is served by Streamlit and loaded here
+        for convenience.
+      </p>
+      <ul>
+        <li><strong>Model:</strong> T5-small fine-tuned on QQP/MRPC/PAWS mix</li>
+        <li><strong>Frontend:</strong> Streamlit app embedded in this page</li>
+        <li><strong>Host:</strong> Render (separate free web service)</li>
+      </ul>
+      <p>
+        Tip: try short commands (<em>“Turn off the kitchen lights.”</em>) and longer sentences
+        (<em>“Please confirm the appointment is set for tomorrow at 10 AM.”</em>).
+      </p>
+    </div>
+
+    <!-- Embedded Streamlit app -->
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Live Demo</h2>
+      <div style="position:relative; padding-top:56.25%; /* 16:9 */">
+        <iframe
+          src="{{ streamlit_url }}"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allow="clipboard-read; clipboard-write;">
+        </iframe>
+      </div>
+      <p style="margin-top:0.75rem">
+        If the embed doesn’t load, open it directly:
+        <a href="{{ streamlit_url }}" target="_blank" rel="noopener">Open Paraphrase Demo</a>
+      </p>
+    </div>
+
+    <!-- Example prompts -->
+    <div class="box" style="margin-bottom: 2rem;">
+      <h2>Example Prompts</h2>
+      <ul>
+        <li>Please confirm the appointment is set for tomorrow at 10 AM.</li>
+        <li>The meeting was postponed due to weather.</li>
+        <li>Turn off the kitchen lights.</li>
+        <li>Where is the nearest coffee shop?</li>
+        <li>This code needs a quick cleanup.</li>
+        <li>Thanks for your patience.</li>
+      </ul>
+    </div>
+
+    {% if error %}
+    <div class="box" style="margin-bottom: 2rem; border: 2px solid #f44336; background-color: #ffe6e6;">
+      <h3 style="color: #f44336;">Error</h3>
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
