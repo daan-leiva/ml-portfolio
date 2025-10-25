@@ -24,6 +24,19 @@
       </section>
 
       <section>
+        <h3>Paraphrase Generation System</h3>
+        <p>
+          A sequence-to-sequence Transformer trained to generate alternative phrasings of sentences using a mix of QQP, MRPC, and PAWS datasets.
+          The model is fine-tuned on paraphrase pairs and served through a lightweight Streamlit app running on Render.
+          It supports BLEU and ROUGE evaluation metrics, along with a clean web interface for quick testing.
+        </p>
+        <ul class="actions">
+          <li><a href="{{ url_for('paraphrase') }}" class="button">Try It</a></li>
+        </ul>
+      </section>
+
+
+      <section>
         <h3>Chest X-ray Classifier (MedImg CNN)</h3>
         <p>
           A deep convolutional neural network trained on the NIH Chest X-ray14 dataset to detect common thoracic diseases from radiographic images.
