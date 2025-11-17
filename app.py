@@ -147,11 +147,9 @@ def call_translation_api(text, target_language='fr', decode_type='beam', beam_si
         'beam_size': beam_size
     }
 
-    print("Going to grab header")
     headers = {
         "X-API-SECRET": os.environ.get("ALPHA_TRANSFORMER_API_SECRET", "")
     }
-    print(os.environ.get("ALPHA_TRANSFORMER_API_SECRET", "THIS FAILED"))
 
     try:
         # Send request to the translation API endpoint
