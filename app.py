@@ -20,6 +20,7 @@ ENDPOINT_NAME = 'ml-model-endpoint'
 VM_API_URL = 'http://35.212.229.126:5000/translate'
 EC3_MEDIMG_API_URL = 'http://54.245.90.136:5000/predict_medimg'
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
